@@ -28,7 +28,7 @@ We are using a robust dataset of wine reviews obtained from [Kaggle](https://www
 ## Team
 
 - [Brandon Lamb](https://github.com/blamb888)
-- [Teammate 1 Name](link to their github profile)
+- [Sultan Lulecioglu](https://github.com/sultan-l)
 - [Teammate 2 Name](link to their github profile)
 
 ## Contributing
