@@ -15,4 +15,8 @@ st.latex(" x^2 math things here")
 
 st.subheader('INPUT BOX: input some wine label/review #(decide which one)')
 
-st.title('put an arrow that will output the ML result')
+st.text_input("Review or label")
+
+
+
+st.button ("Check if recommended")
