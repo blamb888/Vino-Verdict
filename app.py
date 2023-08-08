@@ -1,21 +1,28 @@
 #first pip install streamlit
 import streamlit as st
 
-st.write('Trying if I can make streamlit work')
 
-st.title('this will be title')
+st.title('Vino Verdict test page')
 
-st.subheader('subheader here!!')
 
-st.caption ('any caption here if needed')
+st.subheader('Recommendation level based on wine reviews -- ??? ')
 
-st.latex(" x^2 math things here")
+#st.caption ('any caption here if needed')
+
+#st.latex(" x^2 math things here")
 
 #model = loadMySuperModel()
 
-st.subheader('INPUT BOX: input some wine label/review #(decide which one)')
+
+
+
+st.subheader('INPUT BOX: input some wine label/review #(to be decided- which one)')
+
+
 
 review=st.text_input("Review or label")
+
+
 
 st.button("Check if recommended")
 st.write(review) #for now
