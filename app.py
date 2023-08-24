@@ -2,15 +2,16 @@
 from google.cloud import storage
 
 # Initialise a client
-storage_client = storage.Client("Le Wagon")
+storage_client = storage.Client("graphic-armor-392809")
 # Create a bucket object for our bucket
-bucket = storage_client.get_bucket('vino-verdict')
+bucket = storage_client.bucket('vino-verdict')
 # Create a blob object from the filepath
 blob = bucket.blob("models/pytorch_model.bin")
-blob2 = bucket.blob("models/config.json")
 # Download the file to a destination
-blob.download_to_filename("model")
-blob2.download_to_filename("model")
+blob.download_to_filename("model/pytorch_model.bin")
+
+blob2 = bucket.blob("models/config.json")
+blob2.download_to_filename("model/config.json")
 
 
 import streamlit as st
