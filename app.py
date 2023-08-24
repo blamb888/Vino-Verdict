@@ -6,9 +6,11 @@ storage_client = storage.Client("Le Wagon")
 # Create a bucket object for our bucket
 bucket = storage_client.get_bucket('vino-verdict')
 # Create a blob object from the filepath
-blob = bucket.blob("models/new_3scale_rating.bin")
+blob = bucket.blob("models/pytorch_model.bin")
+blob2 = bucket.blob("models/config.json")
 # Download the file to a destination
 blob.download_to_filename("model")
+blob2.download_to_filename("model")
 
 
 import streamlit as st
