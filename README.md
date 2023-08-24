@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Choosing a good wine can be a daunting task, especially with the overwhelming options available in the market. Vino Verdict aims to demystify this process. Our project utilizes sentiment analysis to parse through a plethora of wine reviews and provide an easily understandable score from 1-10.
+Choosing a good wine can be a daunting task, especially with the overwhelming options available in the market. Vino Verdict aims to demystify this process. Our project utilizes sentiment analysis to parse through a plethora of wine reviews and provide an easily understandable score from 1-3.
 
 We are using a robust dataset of wine reviews obtained from [Kaggle](https://www.kaggle.com/datasets/zynicide/wine-reviews), providing us with a rich text dataset to train our models.
 
