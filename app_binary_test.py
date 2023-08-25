@@ -5,6 +5,12 @@ import numpy as np
 import os
 import torch
 
+if "GCP_CREDENTIALS" in st.secrets:
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = st.secrets["GCP_CREDENTIALS"]
+else:
+    # Replace 'path/to/your/local/credentials.json' with the actual path to your local GCP credentials file
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'path/to/your/local/credentials.json'
+
 @st.cache_data
 def load_model():
     # Initialize Google Cloud Storage
