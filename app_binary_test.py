@@ -9,7 +9,7 @@ if "GCP_CREDENTIALS" in st.secrets:
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = st.secrets["GCP_CREDENTIALS"]
 else:
     # Replace 'path/to/your/local/credentials.json' with the actual path to your local GCP credentials file
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'path/to/your/local/credentials.json'
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = '/home/unix_blamb/code/graphic-armor-392809-e3f73b5387db_key2.json'
 
 @st.cache_data
 def load_model():
