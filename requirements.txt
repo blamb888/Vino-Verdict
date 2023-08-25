@@ -1,1 +1,5 @@
 streamlit
+transformers
+numpy
+google-cloud-storage
+torch
