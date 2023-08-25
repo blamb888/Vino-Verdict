@@ -5,6 +5,29 @@ import numpy as np
 import os
 import torch
 
+@st.cache_data
+def load_model():
+    # Initialize Google Cloud Storage
+    bucket_name = 'vino-verdict'
+    model_blob_name = 'models/sentiment-bert-binary.bin'
+    config_blob_name = 'models/sentiment-bert-binary.bin/sentiment-bert-binary-config.json'
+
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(bucket_name)
+
+    # Create a local directory to store the model and config
+    local_model_dir = './local_model'
+    os.makedirs(local_model_dir, exist_ok=True)
+
+    # Download model and config
+    bucket.blob(model_blob_name).download_to_filename(f"{local_model_dir}/pytorch_model.bin")
+    bucket.blob(config_blob_name).download_to_filename(f"{local_model_dir}/config.json")
+
+    # Load the model
+    model = AutoModelForSequenceClassification.from_pretrained(local_model_dir)
+    
+    return model
+
 # Define the conversion function
 def convert_to_2_scale(arr):
     arr_2_scale = []
@@ -15,24 +38,10 @@ def convert_to_2_scale(arr):
             arr_2_scale.append(1)  # average
     return np.array(arr_2_scale)
 
-# Initialize Google Cloud Storage
-bucket_name = 'vino-verdict'
-model_blob_name = 'models/sentiment-bert-binary.bin'
-config_blob_name = 'models/sentiment-bert-binary.bin/sentiment-bert-binary-config.json'
+# Load the cached model
+model = load_model()
 
-storage_client = storage.Client()
-bucket = storage_client.get_bucket(bucket_name)
-
-# Create a local directory to store the model and config
-local_model_dir = './local_model'
-os.makedirs(local_model_dir, exist_ok=True)
-
-# Download model and config
-bucket.blob(model_blob_name).download_to_filename(f"{local_model_dir}/pytorch_model.bin")
-bucket.blob(config_blob_name).download_to_filename(f"{local_model_dir}/config.json")
-
-# Load the model and tokenizer
-model = AutoModelForSequenceClassification.from_pretrained(local_model_dir)
+# Load the tokenizer
 tokenizer = AutoTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
 
 # Streamlit app
@@ -45,7 +54,7 @@ if st.button('Predict'):
     outputs = model(**inputs)
     logits = outputs.logits.detach().cpu().numpy()
     predicted_classes = np.argmax(logits, axis=1)
-    predicted_classes_2_scale = convert_to_2_scale(predicted_classes) # convert to 2 scale
+    predicted_classes_2_scale = convert_to_2_scale(predicted_classes)  # convert to 2 scale
     
     verdict = 'good' if predicted_classes_2_scale[0] else 'bad'
 
@@ -55,4 +64,3 @@ if st.button('Predict'):
     else:
         st.markdown(f"<h1 style='text-align: center; color: red;'>This wine is: {verdict.upper()}</h1>", unsafe_allow_html=True)
         st.image("images/bad_wine.png", use_column_width=True)
-
